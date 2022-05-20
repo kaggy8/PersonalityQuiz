@@ -37,14 +37,17 @@ extension ResultViewController {
     private func showResult() {
         answer.forEach { animalAnswer in
             if answer.filter({ $0.animal == animalAnswer.animal }).count > 1 {
-                smileLabel.text = "Вы - \(animalAnswer.animal.rawValue)"
-                resultLabel.text = animalAnswer.animal.definition
+                showTextLabel(animalAnswer)
             } else {
                 randomAnswer = answer.randomElement()
-                guard let randomAnswer = randomAnswer?.animal else { return }
-                smileLabel.text = "Вы - \(randomAnswer.rawValue)"
-                resultLabel.text = randomAnswer.definition
+                guard let randomAnswer = randomAnswer else { return }
+                showTextLabel(randomAnswer)
             }
         }
+    }
+    
+    private func showTextLabel(_ answer: Answer) {
+        smileLabel.text = String(answer.animal.rawValue)
+        resultLabel.text = answer.animal.definition
     }
 }
