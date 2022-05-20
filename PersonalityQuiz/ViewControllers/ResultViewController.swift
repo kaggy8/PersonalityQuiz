@@ -16,7 +16,7 @@ class ResultViewController: UIViewController {
     
     // MARK: - Public properties
     
-    var answer = [Answer]()
+    var answer: [Answer]!
     
     // MARK: - Private properties
     private var randomAnswer: Answer?
@@ -25,7 +25,7 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showResult()
+        updateResult()
         
         navigationItem.hidesBackButton = true
     }
@@ -34,19 +34,19 @@ class ResultViewController: UIViewController {
 // MARK: - Private methods
 
 extension ResultViewController {
-    private func showResult() {
+    private func updateResult() {
         answer.forEach { animalAnswer in
             if answer.filter({ $0.animal == animalAnswer.animal }).count > 1 {
-                showTextLabel(animalAnswer)
+                updateUI(animalAnswer)
             } else {
                 randomAnswer = answer.randomElement()
                 guard let randomAnswer = randomAnswer else { return }
-                showTextLabel(randomAnswer)
+                updateUI(randomAnswer)
             }
         }
     }
     
-    private func showTextLabel(_ answer: Answer) {
+    private func updateUI(_ answer: Answer) {
         smileLabel.text = String(answer.animal.rawValue)
         resultLabel.text = answer.animal.definition
     }
